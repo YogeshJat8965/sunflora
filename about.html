@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunflora - Grow Plants for a better Environment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+        
+        .hero-section {
+            position: relative;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://s3-alpha-sig.figma.com/img/a24c/b8f3/50a02e1a01e73ba59933f0954001f7eb?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=YxdllOsUsUvjyWL3xycsmnNqwOv48meEW2lWvbho5jVRW898oJdlVEbmkKwimaNuWiBeuaLPXrSK-G~0iW1M3vkhFkirZJWuvOiKQEcZ00TJtZp0LsdgRhWMlc00iMagMFLDn1Jmd7MQRDZgUVLoRgNq3RoNUe3L5vbq5weyK4Gl1VOfblSRi4JCSVS6X6Fp2W9l-NsORkYpPiK~lA4gaU~ZAU8iM~7DX3Um0miHqAkkNZ8sdrASnONOwkO69PKA1WW0cTe3A6Cq0iVKUtyJHLWYSCsGUypzFzzgAzpTV5OL1iOcZRhzTlGtZh2kd-yez6V9l0xMVxoels9M7YdG8Q__') center/cover no-repeat;
+            transform: rotate(180deg);
+            z-index: -1;
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .search-input {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+        
+        .get-started-btn {
+            background: #22c55e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* .hero-section {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 50%, transparent), url('/api/placeholder/1200/800') right/contain no-repeat;
+            min-height: 80vh;
+        } */
+        
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .search-input {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+        
+        .get-started-btn, .shop-now-btn {
+            background: #22c55e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .get-started-btn:hover, .shop-now-btn:hover {
+            background: #16a34a;
+        }
+
+        .feature-card {
+            background: rgba(220, 255, 220, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            background: #22c55e;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .product-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .leaf-left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .leaf-right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+            
+        }
+
+        .testimonial-card {
+            background-color: #f3f9f3;
+            padding: 20px;
+            border-radius: 16px;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            width: 160px;
+            flex-shrink: 0;
+        }
+
+        .green-background {
+            position: absolute;
+            background-color: #4CAF50;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .text-content {
+            flex-grow: 1;
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 16px;
+        }
+
+        .quote-mark {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #4CAF50;
+            font-size: 48px;
+            line-height: 1;
+            opacity: 0.2;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form {
+            background-color: rgba(227, 246, 227, 0.5);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            width: 100%;
+            font-size: 16px;
+            outline: none;
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        .submit-btn {
+            background-color: #18a518;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            background-color: #148814;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-info h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .info-item svg {
+            fill: #18a518;
+            width: 24px;
+            height: 24px;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #90c890;
+            opacity: 0.3;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        #leaf1 { top: -30px; left: -30px; }
+        #leaf2 { bottom: -30px; right: -30px; }
+
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="fixed w-full bg-white bg-opacity-90 backdrop-blur-sm shadow-sm z-50">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-green-600 text-2xl">🌷</span>
+                <span class="logo-text text-2xl font-bold">Sunflora</span>
+            </div>
+            
+            <div class="flex items-center gap-8">
+                <a href="#" class="text-green-600 font-medium">Home</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">About Us</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Contact</a>
+                
+                <div class="flex items-center gap-4">
+                    <button class="text-gray-600 hover:text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </button>
+                    <button class="text-gray-600 hover:text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </button>
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-20">
+        <section class="hero-section relative overflow-hidden">
+            <div class="container mx-auto px-6 py-20">
+                <div class="max-w-2xl">
+                    <h1 class="text-6xl font-bold mb-6">
+                        <span class="text-green-600">Grow Plants</span> for a<br>
+                        better Environment
+                    </h1>
+                    
+                    <p class="text-gray-600 mb-8 text-lg">
+                        In the heart of a vibrant meadow, where the gentle breeze orchestrates a ballet of colors, there stands a solitary flower.
+                    </p>
+                    
+                    <div class="flex gap-12 mb-12">
+                        <div>
+                            <h3 class="text-4xl font-bold mb-2">50+</h3>
+                            <p class="text-gray-600">Plant Species</p>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-bold mb-2">100+</h3>
+                            <p class="text-gray-600">Customers</p>
+                        </div>
+                    </div>
+                    
+                    <button class="get-started-btn">
+                        Get Started
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    
+                    <div class="mt-12">
+                        <input type="search" placeholder="What are you looking for?" class="search-input">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Previous header code remains the same -->
+    <header class="fixed w-full bg-white bg-opacity-90 backdrop-blur-sm shadow-sm z-50">
+        <!-- ... previous header content ... -->
+    </header>
+
+    <main class="pt-20">
+        <!-- Previous hero section remains the same -->
+        
+        <!-- About Us Section -->
+        <section class="py-20 relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-4">About Us</h2>
+                <p class="text-gray-600 text-center mb-16">Order now and appreciate the beauty of nature</p>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 19V5M5 12l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Large Assortment</h3>
+                        <p class="text-gray-600">Many different types of products with fewer variations.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-14 0h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Fast & Free Shipping</h3>
+                        <p class="text-gray-600">4-day or less delivery time, free shipping and an expedited delivery option.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+                        <p class="text-gray-600">Answers to any business related inquiry 24/7 and in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Selling Products Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <!-- Flex container for two columns -->
+                <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+                    <!-- Left column - Text content -->
+                    <div class="md:w-1/2">
+                        <h2 class="text-6xl font-bold mb-14">
+                            <span class="text-green-600">Best</span> Selling
+                            <br/>products
+                        </h2>
+                        <p class="text-gray-600">Easiest way to healthy life by buying your favorite plants</p>
+                        <button class="shop-now-btn mt-16">
+                            Shop now
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Right column - Image grid -->
+                    <!-- Right column - Image grid -->
+            <div class="md:w-1/2 grid grid-cols-3 gap-4">
+                <!-- Product 1 -->
+                <div class="flex flex-col bg-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="overflow-hidden rounded-t-lg">
+                        <img src="https://s3-alpha-sig.figma.com/img/c080/de6c/6c0b2be84db68b21b8715658c00bca03?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c0O1yaLu-C~Xbv9uv5dyrLFWmMKUI9GarGjyB41Eczsl4l8JFOfPVnEgijAB1zeFAYQshaoDdbgg7z-Knjw5dOYRZ6jxwYiNMP94ShH6Iwtw72nkgGAcBnyCuNX5A6mUZsw18aLH--Ebm8w2a-Iz1zRYO2nepkvMx4a6VNBzASRV78p4bZFzsQL8FNVvN9HXbBGsPLMB-0fTG2vxzTkERyKpG4s2nD9EQ7jhiHJ9qEs0E0PH-KCy3mD~hXGahd5HZ6wyT7rg~sC5lxSll42IfUWuxdubDUt7duEcQI7fhoDuaB475yNoPcAbQU7vX1c5uGc3-Rhqt3gMawDvLPOTxQ__" 
+                            alt="Product 1" 
+                            class="w-full h-76 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Natural Plant</h3>
+                        <p class="text-green-600 font-medium">$65.00</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="flex flex-col bg-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="overflow-hidden rounded-t-lg">
+                        <img src="https://s3-alpha-sig.figma.com/img/c080/de6c/6c0b2be84db68b21b8715658c00bca03?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c0O1yaLu-C~Xbv9uv5dyrLFWmMKUI9GarGjyB41Eczsl4l8JFOfPVnEgijAB1zeFAYQshaoDdbgg7z-Knjw5dOYRZ6jxwYiNMP94ShH6Iwtw72nkgGAcBnyCuNX5A6mUZsw18aLH--Ebm8w2a-Iz1zRYO2nepkvMx4a6VNBzASRV78p4bZFzsQL8FNVvN9HXbBGsPLMB-0fTG2vxzTkERyKpG4s2nD9EQ7jhiHJ9qEs0E0PH-KCy3mD~hXGahd5HZ6wyT7rg~sC5lxSll42IfUWuxdubDUt7duEcQI7fhoDuaB475yNoPcAbQU7vX1c5uGc3-Rhqt3gMawDvLPOTxQ__" 
+                            alt="Product 2" 
+                            class="w-full h-76 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Artificial Plant</h3>
+                        <p class="text-green-600 font-medium">$75.00</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="flex flex-col bg-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="overflow-hidden rounded-t-lg">
+                        <img src="https://s3-alpha-sig.figma.com/img/c080/de6c/6c0b2be84db68b21b8715658c00bca03?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c0O1yaLu-C~Xbv9uv5dyrLFWmMKUI9GarGjyB41Eczsl4l8JFOfPVnEgijAB1zeFAYQshaoDdbgg7z-Knjw5dOYRZ6jxwYiNMP94ShH6Iwtw72nkgGAcBnyCuNX5A6mUZsw18aLH--Ebm8w2a-Iz1zRYO2nepkvMx4a6VNBzASRV78p4bZFzsQL8FNVvN9HXbBGsPLMB-0fTG2vxzTkERyKpG4s2nD9EQ7jhiHJ9qEs0E0PH-KCy3mD~hXGahd5HZ6wyT7rg~sC5lxSll42IfUWuxdubDUt7duEcQI7fhoDuaB475yNoPcAbQU7vX1c5uGc3-Rhqt3gMawDvLPOTxQ__" 
+                            alt="Product 3" 
+                            class="w-full h-76 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Artificial Plant</h3>
+                        <p class="text-green-600 font-medium">$85.00</p>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Categories Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-bold mb-4">Categories</h2>
+            <p class="text-xl text-gray-600">Find what you are looking for</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <!-- Category 1 -->
+            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
+                <img src="https://s3-alpha-sig.figma.com/img/bf2d/e7dc/0043309fa537fc93af5aa512d653c4f6?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jcz1rlPYbXpsbs1Pyre~Vorqh7H26hDjVmRnYlTEakKVzAcv07SK2HsZ3HHTJnCNVrXxLfy4rv4hpl2sVNDwNbW0up33fppKco6hfcfqqszmOHe99xz1cy61MkDighto62hO5rBPiJkPfs1J~UARg131e2tZkI2QCGmk8eDnipKmQQQhrnpK6Ti0A62AvvXRT2eF8Iosqowr2mS~vDIx3HAfc5zGrdop8gC6OvChg6jbeKSgOC~nzpWwHlygrJLswAz0L87YwFccJjLzznA0Xmts9oZdEtElTWSUaXJhqS6CpkUW7oTP32QshR-AnpIInmtC2rtsPQwpj5jufx0Ahw__" alt="Natural Plants" class="w-full h-96 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-white text-2xl font-semibold">Natural Plants</h3>
+                </div>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
+                <img src="https://s3-alpha-sig.figma.com/img/a8ec/1453/35eabf44fbf03a6f16bde3e426b9feb0?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LPYvIYiMnZA6H6CP6wm6D8FEqWnyOZjLiGVZ0AzLeWfUGT4q8SOicLTUweCMNbqJuTuu0SIdNopuq~fTgygQmLNz0BkA1-9UTk7H6mzkhJ~ukObXjIJ0nvG-pFfPFQrNHLoVPYXuFPQPW~P0tzR63qFzFQVM9BpWi4jc68hClhejAG4nQXcSOktUMhCo1yGVBlh~euzR4cucb6y3v9woqyuL54jhKg2A442bCLTUin7zGwbqTnU6hosYMM8zf7BM2fvbzKuOjstQuDWbOjFTVnuc2CGNjI6wY8F2T0m8H3Om6r-hlYqpxaa~YMZHJAA3HHyLG~QTwpx6ry3usv~9HA__" alt="Plant Accessories" class="w-full h-96 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-white text-2xl font-semibold">Plant Accessories</h3>
+                </div>
+            </div>
+
+            <!-- Category 3 -->
+            <div class="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
+                <img src="https://s3-alpha-sig.figma.com/img/a8ec/1453/35eabf44fbf03a6f16bde3e426b9feb0?Expires=1736121600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LPYvIYiMnZA6H6CP6wm6D8FEqWnyOZjLiGVZ0AzLeWfUGT4q8SOicLTUweCMNbqJuTuu0SIdNopuq~fTgygQmLNz0BkA1-9UTk7H6mzkhJ~ukObXjIJ0nvG-pFfPFQrNHLoVPYXuFPQPW~P0tzR63qFzFQVM9BpWi4jc68hClhejAG4nQXcSOktUMhCo1yGVBlh~euzR4cucb6y3v9woqyuL54jhKg2A442bCLTUin7zGwbqTnU6hosYMM8zf7BM2fvbzKuOjstQuDWbOjFTVnuc2CGNjI6wY8F2T0m8H3Om6r-hlYqpxaa~YMZHJAA3HHyLG~QTwpx6ry3usv~9HA__" alt="Artificial Plants" class="w-full h-96 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-white text-2xl font-semibold">Artificial Plants</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="shop-now-btn bg-green-600 text-white px-8 py-4 rounded-full hover:bg-green-700 transition-all duration-300 inline-flex items-center">
+                Shop now
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <!-- Heading -->
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-bold mb-4">what <span class="text-green-600">people</span> says</h2>
+        </div>
+
+        <!-- Images Container -->
+        <div class="flex justify-center items-center gap-16">
+            <!-- Image 1 -->
+            <div class="transition-all duration-300 hover:scale-105">
+                <img src="./image.png" 
+                    alt="Testimonial 1" 
+                    class="max-w-full h-auto rounded-lg shadow-lg">
+            </div>
+
+            <!-- Image 2 -->
+            <div class="transition-all duration-300 hover:scale-105">
+                <img src="./image2.png" 
+                    alt="Testimonial 2" 
+                    class="max-w-full h-auto rounded-lg shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p class="subtitle">Get attachment with us</p>
+        <div class="contact-form">
+            <div class="leaf" id="leaf1"></div>
+            <div class="leaf" id="leaf2"></div>
+            
+
+            <form id="contactForm" onsubmit="return handleSubmit(event)">
+                <div class="form-row">
+                    <input type="text" placeholder="First Name" required>
+                    <input type="text" placeholder="Last Name" required>
+                </div>
+                
+                <div class="form-row">
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+
+                <div class="form-row">
+                    <textarea placeholder="Message" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Submit
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="contact-info">
+                <h2>Get in touch</h2>
+                
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    </svg>
+                    <div>
+                        <div>4710-4890 Breckinridge St,</div>
+                        <div>Fayettevill USA</div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <div>support@sunflora.com</div>
+                </div>
+
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                    </svg>
+                    <div>+1 000-123-456789</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="relative w-full h-80">
+        <img src="./contact.png" 
+             alt="./contact" 
+             class="absolute inset-0 w-full h-full object-cover">
+    </footer>
+
+  
+</body>
+</body>
+</html>
